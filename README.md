@@ -10,9 +10,11 @@ Evaluation of the Puya Semiconductor PY32F002B with EmbedFire Board
 - Operating voltage：1.7 V ~ 5.5 V
 - 1 x 12 bits ADC
   - Support up to 8 external input channels and 2 internal channels
-- Timer
-  - A 16 bits advanced control timer (TIM1)
-  - A general purpose 16-bit timer (TIM14)
+  - 1x Temperature Sensor
+- Timer(s)
+  - A 16 bits advanced control timer [ADTM] (TIM1)
+  - A general purpose 16-bit timer [GPTM] (TIM14)
+  - 5x PWM Channels
   - A low-power timer (LPTIM)，supports wake-up form stop mode
   - An Independent Watching Timer (IWDT)
   - A SysTick timer
@@ -24,7 +26,8 @@ Evaluation of the Puya Semiconductor PY32F002B with EmbedFire Board
 - Two comparators
 - Unique UID
 - Serial wire debug (SWD)
-- QFN20 20-Pin Package
+- QFN20 20-Pin Package Package Size [3.0 x 3.0 x 0.5] (mm)
+- Operation Temperature -40~85 (℃) 
 
 ## EmbedFire PY32F002B Experiment Board
 
