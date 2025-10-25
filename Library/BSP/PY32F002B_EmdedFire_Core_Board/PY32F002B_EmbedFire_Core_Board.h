@@ -71,34 +71,34 @@ typedef enum
   /* LED 2 GPIO PORT a/b/c GPIO PIN n */
   LED2 = 0,
   /* Alias Name LED_GREEN */
-  LED_GREEN = LED2,
+  LED_Right = LED2,
   /* LED 3 GPIO PORT a/b/c GPIO PIN n */
   LED3 = 1,
   /* Alias Name LED_ORANGE */
-  LED_ORANGE = LED3,
+  LED_Middle = LED3,
   /* LED 4 GPIO PORT a/b/c GPIO PIN n */
   LED4 = 2,
   /* Alias Name LED_BLUE */
-  LED_BLUE = LED4,
+  LED_Left = LED4,
   LEDn
-}Led_TypeDef;
+} Led_TypeDef;
 
 typedef enum
 {
   USER_BUTTON1 = 0,
-  /* Alias Name KEY1 as on Board */
+  /* Alias Name KEY1 as on Board GPIO PORT a/b/c GPIO PIN n */
   KEY1 = USER_BUTTON1,
   USER_BUTTON2 = 1,
-  /* Alias Name KEY2 as on Board */
+  /* Alias Name KEY2 as on Board GPIO PORT a/b/c GPIO PIN n */
   KEY2 = USER_BUTTON2,
   USER_BUTTONn 
-}Button_TypeDef
+} Button_TypeDef
 
 typedef enum
 {
   BUTTON_MODE_GPIO = 0,
   BUTTON_MODE_EXTI = 1
-}ButtonMode_TypeDef;
+} ButtonMode_TypeDef;
 
 /**
   * @brief PY32F002B EMBEDFIRE BSP Driver version number
@@ -122,12 +122,12 @@ typedef enum
 #define LED3_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LED2_GPIO_CLK_DISABLE()                 __HAL_RCC_GPIOA_CLK_DISABLE()
 
-#define LED3_PIN                                GPIO_PIN_2
+#define LED3_PIN                                GPIO_PIN_5
 #define LED3_GPIO_PORT                          GPIOA
 #define LED3_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LED3_GPIO_CLK_DISABLE()                 __HAL_RCC_GPIOA_CLK_DISABLE()
 
-#define LED4_PIN                                GPIO_PIN_3
+#define LED4_PIN                                GPIO_PIN_4
 #define LED4_GPIO_PORT                          GPIOA
 #define LED4_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LED4_GPIO_CLK_DISABLE()                 __HAL_RCC_GPIOA_CLK_DISABLE()
@@ -150,19 +150,17 @@ typedef enum
 /**
  * @brief Key push-button
  */
-#define BUTTON_USER1_PIN                       GPIO_PIN_1
-#define BUTTON_USER1_GPIO_PORT                 GPIOB
+#define BUTTON_USER1_PIN                       GPIO_PIN_3
+#define BUTTON_USER1_GPIO_PORT                 GPIOA
 #define BUTTON_USER1_GPIO_CLK_ENABLE()         __HAL_RCC_GPIOC_CLK_ENABLE()
 #define BUTTON_USER1_GPIO_CLK_DISABLE()        __HAL_RCC_GPIOC_CLK_DISABLE()
-#define BUTTON_USER1_EXTI_IRQn                 EXTI15_10_IRQn
-#define BUTTON_USER1_EXTI_LINE                 EXTI_LINE_1
+#define BUTTON_USER1_EXTI_IRQn                 EXTI2_3_IRQn
 
-#define BUTTON_USER2_PIN                       GPIO_PIN_2
-#define BUTTON_USER2_GPIO_PORT                 GPIOB
+#define BUTTON_USER2_PIN                       GPIO_PIN_0
+#define BUTTON_USER2_GPIO_PORT                 GPIOA
 #define BUTTON_USER2_GPIO_CLK_ENABLE()         __HAL_RCC_GPIOC_CLK_ENABLE()
 #define BUTTON_USER2_GPIO_CLK_DISABLE()        __HAL_RCC_GPIOC_CLK_DISABLE()
-#define BUTTON_USER2_EXTI_IRQn                 EXTI15_10_IRQn
-#define BUTTON_USER2_EXTI_LINE                 EXTI_LINE_2
+#define BUTTON_USER2_EXTI_IRQn                 EXTI0_1_IRQn
 
 /* Button Aliases*/
 #define KEY1_PIN                               BUTTON_USER1_PIN
@@ -170,14 +168,12 @@ typedef enum
 #define KEY1_GPIO_CLK_ENABLE()                 BUTTON_USER1_GPIO_CLK_ENABLE()
 #define KEY1_GPIO_CLK_DISABLE()                BUTTON_USER1_GPIO_CLK_DISABLE()
 #define KEY1_EXTI_IRQn                         BUTTON_USER1_EXTI_IRQn
-#define KEY1_EXTI_LINE                         BUTTON_USER1_EXTI_LINE
 
 #define KEY2_PIN                               BUTTON_USER2_PIN
 #define KEY2_GPIO_PORT                         BUTTON_USER2_GPIO_PORT
 #define KEY2_GPIO_CLK_ENABLE()                 BUTTON_USER2_GPIO_CLK_ENABLE()
 #define KEY2_GPIO_CLK_DISABLE()                BUTTON_USER2_GPIO_CLK_DISABLE()
 #define KEY2_EXTI_IRQn                         BUTTON_USER2_EXTI_IRQn
-#define KEY2_EXTI_LINE                         BUTTON_USER2_EXTI_LINE
 
 #define BUTTONx_GPIO_CLK_ENABLE(__INDEX__)     do { if((__INDEX__) == 0) { BUTTON_USER1_GPIO_CLK_ENABLE(); } else { BUTTON_USER2_GPIO_CLK_ENABLE(); } } while(0)
 #define BUTTONx_GPIO_CLK_DISABLE(__INDEX__)    do { if((__INDEX__) == 0) { BUTTON_USER1_GPIO_CLK_DISABLE(); } else { BUTTON_USER2_GPIO_CLK_DISABLE(); } } while(0)
@@ -252,11 +248,10 @@ void     BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode);
 void     BSP_PB_DeInit(Button_TypeDef Button);
 int32_t  BSP_PB_GetState(Button_TypeDef Button);
 
-void     BSP_PB_IRQHandler(Button_TypeDef Button);
-void     BSP_PB_Callback(Button_TypeDef Button);
-
+#ifdef HAL_UART_MODULE_ENABLED
 void     BSP_USART_Config(void);
 #define  DEBUG_USART_Config   BSP_USART_Config
+#endif
 
 /**
   * @}
